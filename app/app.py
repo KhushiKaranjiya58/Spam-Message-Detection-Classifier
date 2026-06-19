@@ -1,7 +1,6 @@
-import streamlit as st
-import joblib
-import nltk
 import string
+import os
+import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,8 +12,15 @@ from nltk.stem.porter import PorterStemmer
 # Load Model & Vectorizer
 # -----------------------------------
 
-model = joblib.load("../models/model.pkl")
-tfidf = joblib.load("../models/vectorizer.pkl")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+model = joblib.load(
+    os.path.join(BASE_DIR, "models", "model.pkl")
+)
+
+tfidf = joblib.load(
+    os.path.join(BASE_DIR, "models", "vectorizer.pkl")
+)
 
 ps = PorterStemmer()
 

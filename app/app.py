@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+nltk.download('stopwords')
 
 # -----------------------------------
 # Load Model & Vectorizer

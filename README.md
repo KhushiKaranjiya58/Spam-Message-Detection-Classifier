@@ -1,6 +1,10 @@
 # Spam Message Detection Classifier
 
-## Overview
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-Web_App-red)
+![Machine Learning](https://img.shields.io/badge/Machine_Learning-NLP-green)
+
+## Project Overview
 
 This project is a Machine Learning based Spam Message Detection System built using Natural Language Processing (NLP) techniques.
 
@@ -52,7 +56,7 @@ Classes:
 
 ---
 
-## Technologies Used
+## Tech Stack
 
 - Python
 - Pandas
@@ -85,7 +89,7 @@ Spam_classifier_detection
 └── README.md
 ```
 
-## Installation
+## How to Run
 
 Clone the repository:
 
@@ -135,6 +139,29 @@ HAM
 ```
 
 ---
+## Screenshots
+
+### Home Page
+
+![Home Page](screenshots/Home_page.png)
+
+### Prediction Result
+
+![Prediction](screenshots/Prediction_Page.png)
+
+### Analytics Dashboard
+
+![Analytics](screenshots/Analytics_dashboard.png)
+
+## Future Improvements
+
+- Deep Learning based Spam Detection
+- Transformer Models (BERT)
+- Email Spam Classification
+- Multi-language Support
+- Cloud Deployment
+- User Authentication
+- Real-time Analytics
 
 ## Author
 

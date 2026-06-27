@@ -6,10 +6,25 @@ import string
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
-nltk.download('stopwords')
+
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    nltk.download("punkt_tab")
+
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
 
 # -----------------------------------
 # Load Model & Vectorizer
@@ -26,6 +41,8 @@ tfidf = joblib.load(
 )
 
 ps = PorterStemmer()
+
+STOPWORDS = set(stopwords.words("english"))
 
 # -----------------------------------
 # Text Preprocessing
@@ -49,7 +66,7 @@ def transform_text(text):
 
     # Remove stopwords & punctuation
     for i in text:
-        if i not in stopwords.words('english') and i not in string.punctuation:
+        if i not in STOPWORDS and i not in string.punctuation:           
             y.append(i)
 
     text = y[:]
@@ -159,6 +176,8 @@ Features:
 • Prediction History
 • Analytics Dashboard
 • Download Report
+• Batch Prediction
+                
 """)
 
 st.markdown("""
@@ -238,7 +257,8 @@ if st.button("Predict"):
         {
             "Message": input_sms,
             "Prediction": prediction,
-            "Confidence": f"{confidence}%"
+            "Confidence": f"{confidence}%",
+            "Time": datetime.now().strftime("%H:%M:%S")
         }
     )
 
@@ -354,19 +374,22 @@ if len(st.session_state.history) > 0:
             ham_count
         )
 
-        fig, ax = plt.subplots()
+        if spam_count + ham_count > 0:
 
-        ax.pie(
-            [spam_count, ham_count],
-            labels=["Spam", "Ham"],
-            autopct="%1.1f%%"
-        )
+            fig, ax = plt.subplots()
 
-        ax.set_title(
-            "Spam vs Ham Distribution"
-        )
+            ax.pie(
+                [spam_count, ham_count],
+                labels=["Spam", "Ham"],
+                autopct="%1.1f%%"
+            )
 
-        st.pyplot(fig)
+            ax.set_title("Spam vs Ham Distribution")
+
+            st.pyplot(fig)
+
+        else:
+            st.info("No chart available.")
 
         st.bar_chart(
             analytics_df["Prediction"].value_counts()
@@ -431,7 +454,8 @@ if uploaded_file is not None:
             st.session_state.history.append({
                 "Message": f"📂 {uploaded_file.name}",
                 "Prediction": "BATCH",
-                "Confidence": f"{len(batch_df)} Messages"
+                "Confidence": f"{len(batch_df)} Messages",
+                "Time": datetime.now().strftime("%H:%M:%S")
             })
             
 
